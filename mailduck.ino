@@ -79,7 +79,7 @@ void setup()
   if(digitalRead(A2)==LOW){  // if the key is pressed, the value is HIGH and the script doesnt run!
     // Begining the Keyboard stream
     Keyboard.begin();
-    delay(500);
+    delay(2000);
   
     openWindowsMenu();
   
@@ -142,9 +142,10 @@ void loop(){
   blinkLed();
     if (Serial1.available() > 0) {
     // read incoming serial data:
-    char inChar = Serial1.read();
-    // Type the next ASCII value from what you received:
-    Keyboard.write(inChar);
+    String inChar = Serial1.readString();
+    // Type the next A
+    SCII value from what you received:
+    Keyboard.print(inChar);
   }
 }
 
