@@ -1,5 +1,5 @@
 # mailduck
-A <b>Windows 10</b> ducky script for arduino leonardo that emulates keyboard to steal data from a pc via email.The philosophy behind the ducky scripts, is that you try a script/task using <b> only the keyboard</b> and then you programm it into the rubber ducky. Just load it to your Arduino IDE(or anything else you could use), upload it to your arduino leonardo, and connect it to a  PC with a regular smartphone cable(micro USB).  It should run out of the box on windows 10 machines with no lag problems. Lately I'm trying to enhance it with remote control via WiFi capabilities, so I created the wifi_controller.ino sketch to use a NodeMCU v0.9 to setup a simple interactive command server that accepts text(command) input via web browser, and then spits it out using serial communication. Now I have to port the duck_email.ino to accept commands from the RX TX pins(from the NODEMCU). It is not an easy task though, because of the parallel nature of Serial communication and Keyboard Emulation.</br>
+A <b>Windows 10</b> ducky script for arduino leonardo that emulates keyboard to steal data from a pc via email.The philosophy behind the ducky scripts, is that you try a script/task using <b> only the keyboard</b> and then you programm it into the rubber ducky. Just load it to your Arduino IDE(or anything else you could use), upload it to your arduino leonardo, and connect it to a  PC with a regular smartphone cable(micro USB).  It should run out of the box on windows 10 machines with no lag problems. Lately I'm trying to enhance it with remote control via WiFi capabilities, so I created the wifi_controller.ino sketch to use a NodeMCU v0.9 to setup a simple interactive command server that accepts text(command) input via web browser, and then spits it out using serial communication.This way you can essentialy have a remote for your computer(or someone else's?).The wiring between the arduino Leonardo and the NodeMCU is pretty simple: connect NodeMCU's TX to Leo's RX, connect the two devices GND together, and connect the NodeMCU's 5V pin to the computer USB 5V pin.</br>
 Some <b>usefull key combinations</b> to keep in mind:
 
 <b>Left_Ctrl+Esc</b> --> opens windows menu(from which we can search for things) </br>
@@ -23,6 +23,13 @@ Keep in mind:</br>
 or it could have loudspeakers connected and activated(it may produce a sound if connected!).</br>
 3)Remember that the pc you connect your ducky to may be laggy! If thats the case, precautions have to be taken</br>
 to ensyre correct timing of the keystrokes(usually using delays after time-y commands)</br>
+**Technical Advice for reinventing the wheel**</br>
+1- Please dont.</br>
+2- Use Serial1 class and [not Serial](https://store.arduino.cc/arduino-leonardo-with-headers) in Leonardo when trying to use RX-TX pins!</br>
+3- When programming the Leo, please, do not have RX and TX pins connected anywhere!</br>
+4- When programming the NodeMCU keep in mind that anything else that can wirelessly transfer text and then spit it out using TTL 5V Serial,is worth more of your time than that sob.</br>
+</br></br>
+
 
 <b> Arduino Keyboard() library key codes</b> (from [the nice guys at arduino](https://www.arduino.cc/en/Reference/KeyboardModifiers))</br>
 ```
