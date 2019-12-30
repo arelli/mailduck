@@ -143,8 +143,7 @@ void loop(){
     if (Serial1.available() > 0) {
     // read incoming serial data:
     String inChar = Serial1.readString();
-    // Type the next A
-    SCII value from what you received:
+    // Type the next ASCII value from what you received:
     Keyboard.print(inChar);
   }
 }
