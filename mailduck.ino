@@ -74,6 +74,7 @@ void setup()
 {
   pinMode(A2, INPUT); // Added a pushbutton at pin A2(connected to GND with 10KOhm pulldown resistor and VCC)
   pinMode(2,OUTPUT);  // added a LED for output
+  Serial1.begin(115200);  // Serial1 MUST be used(instead of Serial. This is a leonardo specific requirement)
   
   if(digitalRead(A2)==LOW){  // if the key is pressed, the value is HIGH and the script doesnt run!
     // Begining the Keyboard stream
@@ -139,4 +140,11 @@ void setup()
 /* Unused endless loop */
 void loop(){
   blinkLed();
+    if (Serial1.available() > 0) {
+    // read incoming serial data:
+    char inChar = Serial1.read();
+    // Type the next ASCII value from what you received:
+    Keyboard.write(inChar);
+  }
 }
+
