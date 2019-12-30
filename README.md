@@ -23,7 +23,7 @@ Keep in mind:</br>
 or it could have loudspeakers connected and activated(it may produce a sound if connected!).</br>
 3)Remember that the pc you connect your ducky to may be laggy! If thats the case, precautions have to be taken</br>
 to ensyre correct timing of the keystrokes(usually using delays after time-y commands)</br>
-**Technical Advice for reinventing the wheel**</br>
+</br></br>**Technical Advice for reinventing the wheel**</br>
 1- Please dont.</br>
 2- Use Serial1 class and [not Serial](https://store.arduino.cc/arduino-leonardo-with-headers) in Leonardo when trying to use RX-TX pins!</br>
 3- When programming the Leo, please, do not have RX and TX pins connected anywhere!</br>
