@@ -28,6 +28,7 @@ to ensyre correct timing of the keystrokes(usually using delays after time-y com
 2- Use Serial1 class and [not Serial](https://store.arduino.cc/arduino-leonardo-with-headers) in Leonardo when trying to use RX-TX pins!</br>
 3- When programming the Leo, please, do not have RX and TX pins connected anywhere!</br>
 4- When programming the NodeMCU keep in mind that anything else that can wirelessly transfer text and then spit it out using TTL 5V Serial,is worth more of your time than that sob.</br>
+5-I hate to say that, really, but do yourself a favour and do not use Ubuntu 18.04 to program your Leonardo. You will learn about all kinds of uploading problems. I switched to my windows 10 machine and everything works like a charm.
 </br></br>
 
 
