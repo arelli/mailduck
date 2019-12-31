@@ -60,7 +60,7 @@ void setup(void){
     messagetoprint = handleGenericArgs(); 
     if(server.args()>0){  //  if there are arguments(commands), add them in the html and increment the counter.
       page += "</br>command " + (String)command_counter +": " + messagetoprint;
-      Serial.println(messagetoprint);
+      Serial.print(messagetoprint);
       server.send(200, "text/html", page);
       command_counter ++;
     }
