@@ -165,7 +165,5 @@ void loop(){
     else{
       Keyboard.print(serialstring);
     }
-    
-    
   }
 }
