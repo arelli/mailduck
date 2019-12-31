@@ -128,7 +128,7 @@ void setup()
 void loop(){
   blinkLed();
     if (Serial1.available() > 0) {
-    String serialstring = Serial1.readString();
+    String serialstring = Serial1.readString();  // it can be 63 characters long MAX!
     String typeOfCommand = serialstring.substring(0,3);  // the first four letters indicate the type of the command(e.g. "wrt=")
     String commandContent = serialstring.substring(4);  // all the letters after the fourth
     char commandContentChar[commandContent.length()];
@@ -159,7 +159,7 @@ void loop(){
       Keyboard.releaseAll();
     }
     else if(typeOfCommand=="dbg"){
-      //do nothing. "dbg" stands for Debug and it is to be used for debug of the nodeMCU through an USB8
+      //do nothing. "dbg" stands for Debug and it is to be used for debug of the nodeMCU through an USB
     }
     else{
       Keyboard.print(serialstring);
