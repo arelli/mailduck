@@ -42,7 +42,8 @@ void setup(void){
   page += "Usage:";
   page += "</br><font size=\"1\">cmd(space)(text): Prints the text and then hits enter(return key)</br>";
   page += "wrt(space)(character): Writes a signle character</br>";
-  page += "prs(space)(ASCII_or_Modifier_Key_Code): Presses the provided key";
+  page += "prs(space)(ASCII_or_Modifier_Key_Code): Presses continuously the provided key</br>";
+  page += "pr1(space)(ASCII_or_Modifier_Key_Code): Presses once the provided key</br>";
   page += "rls(nothing): Releases all the pressed keys</br>";
   page += "dbg(anything): used for debugging.The ducky ignores them(available at leonardo usb serial).</font></br>";
   page += "</br><form>Command to Send:<br><input type=\"text\" name=\"command\"><br></form>";
