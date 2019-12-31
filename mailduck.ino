@@ -79,12 +79,12 @@ void setup()
   
   if(digitalRead(A2)==LOW){  // if the key is pressed, the value is HIGH and the script doesnt run!
     // Begining the Keyboard stream
+    /*
     Keyboard.begin();
     delay(2000);
     int guiKey1 = 131;  // Library code for GUI key(windows/osx button)
     int guiKey2 = 114; // Ascii code for r
     twoKeyCombination(guiKey1,guiKey2);  // open "run" dialog
-    /*
     command("powershell Start-Process powershell -Verb runAs");
     delay(1500);  // wait for the powershell to open
     Keyboard.press(KEY_LEFT_ALT);  // reply yes to User Account Control Screen
@@ -155,6 +155,11 @@ void loop(){
     }
     else if(typeOfCommand=="prs"){  // press mode. Presses a modifier Key(and does not release it until an rls comes.
       Keyboard.press(commandContentInt);     // accepts modifier key codes(see mailduck's readme.md) and ASCII codes
+    }
+    else if(typeOfCommand=="pr1"){  // press-and-then-release mode. Presses a modifier Key(and does not release it until an rls comes.
+      Keyboard.press(commandContentInt);     // accepts modifier key codes(see mailduck's readme.md) and ASCII codes
+      delay(100);
+      Keyboard.release(commandContentInt);
     }
     else if(typeOfCommand=="rls"){  // release mode. Releases all the pressed modifier keys.
       Keyboard.releaseAll();
