@@ -75,6 +75,7 @@ void setup()
   pinMode(A2, INPUT); // Added a pushbutton at pin A2(connected to GND with 10KOhm pulldown resistor and VCC)
   pinMode(2,OUTPUT);  // added a LED for output
   Serial1.begin(115200);  // Serial1 MUST be used(instead of Serial. This is a leonardo specific requirement)
+  Serial.begin(115200);  // Debug Serial to be used from PC connected with usb cable
   
   if(digitalRead(A2)==LOW){  // if the key is pressed, the value is HIGH and the script doesnt run!
     // Begining the Keyboard stream
@@ -129,8 +130,17 @@ void loop(){
     if (Serial1.available() > 0) {
     String serialstring = Serial1.readString();
     String typeOfCommand = serialstring.substring(0,3);  // the first four letters indicate the type of the command(e.g. "wrt=")
-    String commandContent = serialstring.substring(3);  // all the letters after the fourth
+    String commandContent = serialstring.substring(4);  // all the letters after the fourth
     char commandContentChar[commandContent.length()];
+    Serial.println("----------------------New Command----------------------");
+    Serial.print("serialstring=");
+    Serial.println(serialstring);
+    Serial.print("typeofcommand=");
+    Serial.println(typeOfCommand);
+    Serial.print("commandContent=");
+    Serial.println(commandContent);
+    Serial.print("commandContentChar=");
+    Serial.println(commandContentChar);
     commandContent.toCharArray(commandContentChar,commandContent.length());
     if(typeOfCommand=="cmd"){       // command mode. Types a command and then presses the Return key
       Keyboard.print(commandContent);
