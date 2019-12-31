@@ -158,9 +158,13 @@ void loop(){
     else if(typeOfCommand=="rls"){  // release mode. Releases all the pressed modifier keys.
       Keyboard.releaseAll();
     }
+    else if(typeOfCommand=="dbg"){
+      //do nothing. "dbg" stands for Debug and it is to be used for debug of the nodeMCU through an USB8
+    }
     else{
       Keyboard.print(serialstring);
     }
+    
     
   }
 }
