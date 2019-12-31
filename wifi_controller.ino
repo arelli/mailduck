@@ -7,11 +7,18 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
- 
+
+ /*
 // Replace with your network credentials
 const char* ssid1 = "mywifi88";
 const char* password1 = "password1";
- 
+*/
+
+// Replace with your network credentials
+String ssid1 = "mywifi88";
+String password1 = "password1";
+
+
 ESP8266WebServer server(80);   //instantiate server at port 80 (http port)
  
 String page = "";
@@ -23,7 +30,7 @@ String handleGenericArgs() { //Handler from https://techtutorialsx.com/2016/10/2
   String message = "";  
   for (int i = 0; i < server.args(); i++) {
     //message += "arg" + (String)i + ":";   //Include the current iteration value
-    message += server.arg(i) + "\n";              //Get the value of the parameter
+    message = server.arg(i);              //Get the value of the parameter
   }
   return message;
 } 
@@ -50,11 +57,14 @@ void setup(void){
     //Serial.println(WiFi.status());
     //Serial.println(WiFi.softAPgetStationNum());  //using the SoftAP class
   }
-  //Serial.println("");
-  //Serial.print("Connected to ");
-  //Serial.println(ssid1);
-  //Serial.print("IP address: ");
-  //Serial.println(WiFi.softAPIP());  // using the SoftAP class
+  Serial.println("dbg-This is the debug output of NodeMCU. It is used to define which messages are to be ignored from the ducky.");
+  String wifissidmsg = "dbg-Your software AP SSID is: " + ssid1;
+  Serial.println(wifissidmsg);
+  String wifipassmsg = "dbg-Your software AP password is: " + password1;
+  Serial.println(wifipassmsg);
+  //String ipadress = String(WiFi.softAPIP());
+  //String ipadressmsg = "dbg-IP address: " + ipadress;
+  //Serial.println(ipadressmsg);
 
   server.on("/", [](){
     messagetoprint = handleGenericArgs(); 
@@ -69,7 +79,7 @@ void setup(void){
     }
   });
   server.begin();
-  //Serial.println("Web server started!");  // probably at 192.168.4.1
+  Serial.println("dbg-Web server started!");  // probably at 192.168.4.1
 }
 
  
