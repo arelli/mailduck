@@ -1,20 +1,14 @@
 /*  Started project with https://www.teachmemicro.com/simple-nodemcu-web-server/?fbclid=IwAR3t7f_soMh3nq68VfKGwujMyAe0doMfzpa6MfHRXri7Cc7vvrT4-FKqfBc
  *  for remote command execution ducky in combination with arduino leonardo. Its purpose is to create a WiFi Hotspot for you to connect, and then 
  *  it generates a server with an interactive website that allows you to type commands in a html form. The commands are directly "printed" in the 
- *  serial output(useful if you want to control any serial-capable device via WiFi).
+ *  serial output(useful if you want to control any serial-capable device via WiFi, in our example, the mailduck).
  */
 
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 
- /*
-// Replace with your network credentials
-const char* ssid1 = "mywifi88";
-const char* password1 = "password1";
-*/
-
-// Replace with your network credentials
+// Replace with your desired AP credentials
 String ssid1 = "mywifi88";
 String password1 = "password1";
 
@@ -48,13 +42,13 @@ void setup(void){
   page += "dbg(anything): used for debugging.The ducky ignores them(available at leonardo usb serial).</font></br>";
   page += "</br><form>Command to Send:<br><input type=\"text\" name=\"command\"><br></form>";
   page += "Modifier Key Codes:</br>";  // TODO: add those in a seprate /help directory and add a key to acces it from "/"
-  page += "<font size=\"1\">LEFT_CTRL->128,LEFT_SHIFT->129,LEFT_ALT->130,LEFT_GUI->131,RIGHT_CTRL->132</br>";
-  page += "RIGHT_SHIFT->133,RIGHT_ALT->134,RIGHT_GUI->135,UP_ARROW->218,DOWN_ARROW->217</br>";
-  page += "LEFT_ARROW->216,RIGHT_ARROW->215,BACKSPACE->178,TAB->179,RETURN->176,ESC->177</br>";
-  page += "INSERT->209,DELETE->212,PAGE_UP->211,PAGE_DOWN->214,HOME->210,END->213</br>";
-  page += "CAPS_LOCK->193,F1->194,F2->195,F3->196,F4->197,F5->198,F6->199,F7->200,F8->201</br>";
-  page += "F9->202,F10->203,F11->204,F12->205</font></br>";
-  //make the LED pin output and initially turned off
+  page += "<font size=\"1\">LEFT_CTRL->128, LEFT_SHIFT->129, LEFT_ALT->130, LEFT_GUI->131, RIGHT_CTRL->132</br>";
+  page += " RIGHT_SHIFT->133, RIGHT_ALT->134, RIGHT_GUI->135, UP_ARROW->218, DOWN_ARROW->217</br>";
+  page += " LEFT_ARROW->216, RIGHT_ARROW->215 ,BACKSPACE->178, TAB->179,RETURN->176 ,ESC->177</br>";
+  page += " INSERT->209, DELETE->212, PAGE_UP->211, PAGE_DOWN->214, HOME->210, END->213</br>";
+  page += " CAPS_LOCK->193, F1->194, F2->195, F3->196, F4->197, F5->198, F6->199, F7->200, F8->201</br>";
+  page += " F9->202, F10->203, F11->204, F12->205</font></br>";
+
   delay(1000);
   Serial.begin(115200);
   WiFi.softAP(ssid1,password1); //begin WiFi connection https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/soft-access-point-class.html
